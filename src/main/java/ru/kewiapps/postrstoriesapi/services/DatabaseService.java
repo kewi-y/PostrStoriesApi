@@ -6,7 +6,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import ru.kewiapps.postrstoriesapi.enums.models.story.StoryType;
 import ru.kewiapps.postrstoriesapi.models.story.ImageStory;
 import ru.kewiapps.postrstoriesapi.models.story.Story;
+import ru.kewiapps.postrstoriesapi.models.story.VideoStory;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,6 +96,11 @@ public class DatabaseService {
             storyMap.put("downloadImageUri",imageStory.getDownloadImageUri());
             return storyMap;
         }
+        if(story.getStoryType() == StoryType.VIDEO_STORY){
+            VideoStory videoStory = (VideoStory) story;
+            storyMap.put("downloadVideoUri",videoStory.getDownloadVideoUri());
+            return storyMap;
+        }
         else {
             return null;
         }
@@ -106,8 +113,9 @@ public class DatabaseService {
             return story;
         }
         else if(storyMap.get("storyType").equals(StoryType.VIDEO_STORY.toString())){
-            //TODO: write video story
-            return null;
+            story = new VideoStory((String) storyMap.get("id"),(String) storyMap.get("downloadVideoUri"),
+                    (String) storyMap.get("authorId"),(long) storyMap.get("timestamp"));
+            return story;
         }
         else {
             return null;

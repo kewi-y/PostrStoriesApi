@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kewiapps.postrstoriesapi.models.story.ImageStory;
 import ru.kewiapps.postrstoriesapi.models.story.Story;
+import ru.kewiapps.postrstoriesapi.models.story.VideoStory;
 import ru.kewiapps.postrstoriesapi.repositroy.StoriesRepository;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -38,6 +39,16 @@ public class StoriesApiController {
     public String addImageStory(@RequestBody ImageStory imageStory){
         try {
             return storiesRepository.addImageStory(imageStory);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping(value="addVideoStory")
+    public String addVideoStory(@RequestBody VideoStory videoStory){
+        try {
+            return storiesRepository.addVideoStory(videoStory);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

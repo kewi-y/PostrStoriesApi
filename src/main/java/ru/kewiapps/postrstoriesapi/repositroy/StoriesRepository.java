@@ -2,6 +2,7 @@ package ru.kewiapps.postrstoriesapi.repositroy;
 
 import ru.kewiapps.postrstoriesapi.models.story.ImageStory;
 import ru.kewiapps.postrstoriesapi.models.story.Story;
+import ru.kewiapps.postrstoriesapi.models.story.VideoStory;
 import ru.kewiapps.postrstoriesapi.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -43,12 +44,18 @@ public class StoriesRepository {
         System.out.println("id >>: " + imageStory.getId());
         System.out.println("author id >>: " + imageStory.getAuthorId());
         System.out.println("download image uri >>: " + imageStory.getDownloadImageUri());
-        System.out.println("timestamp >>: "+ imageStory.getTimestamp().toString());
         imageStory.setTimestamp(date.getTime());
+        System.out.println("timestamp >>: " + imageStory.getTimestamp());
         return databaseService.addStory(imageStory);
     }
-    public String addVideoStory(){
-        //TODO: write method using firebase
-        return " ";
+    public String addVideoStory(VideoStory videoStory) throws ExecutionException, InterruptedException {
+        System.out.println("<<< Adding story >>>");
+        System.out.println("<<< STORY TYPE >>>: " + videoStory.getStoryType());
+        System.out.println("id >>: " + videoStory.getId());
+        System.out.println("authorId >>: " + videoStory.getAuthorId());
+        System.out.println("download video uri >>: " + videoStory.getDownloadVideoUri());
+        videoStory.setTimestamp(date.getTime());
+        System.out.println("timestamp >>: " + videoStory.getTimestamp());
+        return databaseService.addStory(videoStory);
     }
 }
