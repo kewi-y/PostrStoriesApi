@@ -46,7 +46,7 @@ public class DatabaseService {
         ArrayList<String> storiesIdList = new ArrayList<>();
         collectionReference = database.collection("stories");
         Query sortingByAuthorIdQuery = collectionReference.whereEqualTo("authorId", authorId);
-        ApiFuture<QuerySnapshot> sortingByAuthorIdFutureSnapshot = collectionReference.get();
+        ApiFuture<QuerySnapshot> sortingByAuthorIdFutureSnapshot = sortingByAuthorIdQuery.get();
         QuerySnapshot sortingByAuthorIdSnapshot = sortingByAuthorIdFutureSnapshot.get();
         List<QueryDocumentSnapshot> storiesSnapshotList = sortingByAuthorIdSnapshot.getDocuments();
         if(storiesSnapshotList.size() > 0){
@@ -113,8 +113,8 @@ public class DatabaseService {
             return story;
         }
         else if(storyMap.get("storyType").equals(StoryType.VIDEO_STORY.toString())){
-            story = new VideoStory((String) storyMap.get("id"),(String) storyMap.get("downloadVideoUri"),
-                    (String) storyMap.get("authorId"),(long) storyMap.get("timestamp"));
+            story = new VideoStory((String) storyMap.get("id"),(String) storyMap.get("authorId"),
+                    (String) storyMap.get("downloadVideoUri"),(long) storyMap.get("timestamp"));
             return story;
         }
         else {
